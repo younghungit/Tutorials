@@ -29,14 +29,14 @@ public class BookController {
     @Autowired
     private PublisherService publisherService;
 
-    @GetMapping("/findAllBooks")
+    @GetMapping("/books")
     public String findAllBooks(Model model) {
         List<Book> books =bookService.findAllBooks();
         model.addAttribute("books", books);
         return "books";
     }
 
-    @GetMapping("/findBookById/{id}")
+    @GetMapping("/book/{id}")
     public String findBookById(Model model,@PathVariable Long id) {
         Book book = bookService.findBookById(id);
         model.addAttribute("book", book);
@@ -46,7 +46,7 @@ public class BookController {
     @GetMapping("/deleteBookById/{id}")
     public String deleteBookById(Model model,@PathVariable Long id) {
         bookService.deleteBookById(id);
-        return "redirect:/books";
+        return "books";
     }
 
     @GetMapping("/updateBook/{id}")

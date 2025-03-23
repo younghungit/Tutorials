@@ -2,12 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Books List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 <h1>Books</h1>
-<div th:switch="${books}" class="container my-5">
+
+<div th:replace="navbar :: navbar"></div>
+
+<div th:switch="${books}">
     <p>
-        <a href="/add-book" class="btn btn-primary">
+        <a href="/add-book">
             <i> Add Book </i></a>
     </p>
     <div>
@@ -29,12 +33,9 @@
                     <td th:text="${books.isbn}"></td>
                     <td th:text="${books.name}"></td>
                     <td th:text="${books.description}"></td>
-                    <td><a th:href="@{/book/{id}(id=${books.id})}" class="btn btn-primary"><i
-                    ></i></a></td>
-                    <td><a th:href="@{/update-book/{id}(id=${books.id})}" class="btn btn-primary"><i
-                            ></i></a></td>
-                    <td><a th:href="@{/remove-book/{id}(id=${books.id})}" class="btn btn-primary"><i
-                            ></i></a></td>
+                    <td><a th:href="@{/book/{id}(id=${books.id})}">Detail</a></td>
+                    <td><a th:href="@{/update-book/{id}(id=${books.id})}" >Edit</a></td>
+                    <td><a th:href="@{/remove-book/{id}(id=${books.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

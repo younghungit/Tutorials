@@ -1,0 +1,52 @@
+
+.navbar {
+    padding: 10px 0;
+    text-align: center;  /* Center content */
+}
+
+
+.nav-list {
+    list-style: none;  /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex;  /* Make items appear horizontally */
+    justify-content: center;  /* Center navigation items */
+}
+
+/* Style each navigation link */
+.nav-list li {
+    margin: 0 15px; /* Add spacing between items */
+}
+
+/* Style the links */
+.nav-list li a {
+    text-decoration: none;
+    color: black;
+    padding: 10px 15px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Hover effect */
+.nav-list li a:hover {
+    background-color: #f2f2f2;
+}
+
+/* Ensure navbar fits within table layout */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px; /* Adjust margin for navbar */
+}
+
+/* Table styling */
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}

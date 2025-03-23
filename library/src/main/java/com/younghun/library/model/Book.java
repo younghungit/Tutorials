@@ -26,6 +26,12 @@ public class Book {
 	private String description;
 	private String isbn;
 
+	public Book(String name, String description, String isbn) {
+		this.name = name;
+		this.description = description;
+		this.isbn = isbn;
+	}
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "books_authors",
 	joinColumns = {@JoinColumn(name="book_id")},
@@ -39,6 +45,27 @@ public class Book {
 	inverseJoinColumns = {@JoinColumn(name="category_id")})
 	private Set<Category> categories = new HashSet<>();
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="books_publishers",
+			joinColumns = {@JoinColumn(name="book_id")},
+			inverseJoinColumns = {@JoinColumn(name="publisher_id")})
+	private Set<Publisher> publishers = new HashSet<>();
+
+
+	public void addPublisher(Publisher publisher){
+		this.publishers.add(publisher);
+		publisher.getBooks().add(this);
+	}
+
+	public void addAuthor(Author author){
+		this.authors.add(author);
+		author.getBooks().add(this);
+	}
+
+	public void addCategory(Category category){
+		this.categories.add(category);
+		category.getBooks().add(this);
+	}
 	
 
 }

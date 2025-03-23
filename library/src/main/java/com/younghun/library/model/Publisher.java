@@ -1,15 +1,14 @@
 package com.younghun.library.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "publishers")
@@ -23,4 +22,10 @@ public class Publisher {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	public Publisher(String name) {
+		this.name = name;
+	}
+
+	@ManyToMany(mappedBy = "publishers", cascade = CascadeType.ALL)
+	private Set<Book> books = new HashSet<Book>();
 }
