@@ -22,10 +22,11 @@ public class Publisher {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String description;
 	public Publisher(String name) {
 		this.name = name;
 	}
 
-	@ManyToMany(mappedBy = "publishers", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "publishers", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Set<Book> books = new HashSet<Book>();
 }

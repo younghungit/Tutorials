@@ -17,7 +17,6 @@ public class AuthorService {
         return authorRepository.findById(id).orElseThrow( () -> new RuntimeException("その著者はいません"));}
 
     public List<Author> findAllAuthors(){return authorRepository.findAll();}
-
     public void createAuthor(Author author){authorRepository.save(author);}
     public void updateAuthor(Author author){authorRepository.save(author);}
     public void deleteAuthorById(Long id){

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="~{navbar :: navbar}"></div>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">ISBN</th>
+            <th scope="col">書籍の名前</th>
+            <th scope="col">説明</th>
+            <th scope="col">書籍</th>
+            <th scope="col">出版社</th>
+            <th scope="col">分類</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="books : ${book}">
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.description}"></td>
+            <td th:text="${book.authors[0].name}"></td>
+            <td th:text="${book.publishers[0].name}"></td>
+            <td th:text="${book.categories[0].name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a th:href="@{/update-book/{id}(id=${book.id})}" >編集</a>
+</div>
+<div>
+    <a th:href="@{/delete-book/{id}(id=${book.id})}">削除</a>
+</div>
+</body>
+</html>

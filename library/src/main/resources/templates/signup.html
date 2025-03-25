@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{navbar :: navbar}"></div>
+<form th:action="@{/signup}" method="post" th:object="${userForm}">
+  <input type="text" th:field="*{username}" placeholder="Username"/>
+  <div th:errors="*{username}" class="error"></div><br/>
+  <input type="password" th:field="*{password1}" placeholder="Password"/>
+  <div th:errors="*{password1}" class="error"></div><br/>
+
+  <input type="password" th:field="*{password2}" placeholder="Confirm Password"/>
+  <div th:errors="*{password2}" class="error"></div><br/>
+
+  <input type="submit" value="Sign Up"/>
+
+</form>
+
+</body>
+</html>

@@ -2,35 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Book</title>
+    <title>Books List</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-
 <body>
+
 <div th:replace="~{navbar :: navbar}"></div>
+
 <div>
-    <form action="#" th:action="@{/save-book}" th:object="${book}" method="post">
-        <label for="name">名前</label>
-        <input type="text" th:field="*{name}" id="name" placeholder="Name"/>
+    <form action="#" th:action="@{/save-update/{id}(id=${book.id})}" th:object="${book}" method="post">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="${book.name}"/>
         <br>
         <label for="isbn">ISBN</label>
         <input type="text" th:field="*{isbn}" id="isbn" placeholder="ISBN"/>
         <br>
-        <label for="description">説明</label>
+        <label for="description">Description</label>
         <input type="text" th:field="*{description}" id="description" placeholder="Description"/>
         <br>
-        <label for="author">著者</label>
-        <select th:field="*{authors}" id="author" multiple="multiple">
+        <label for="author">Author</label>
+        <select th:field="*{authors}" id="author">
             <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
         </select>
         <br>
-        <label for="publisher">出版社</label>
-        <select th:field ="*{publishers}" id="publisher" multiple="multiple">
+        <label for="publisher">Publisher</label>
+        <select th:field ="*{publishers}" id="publisher">
             <option th:each="publisher: ${publishers}" th:value="${publisher.id}" th:text = "${publisher.name}"></option>
         </select>
         <br>
-        <label for="category">分類</label>
-        <select th:field="*{categories}" id="category" multiple="multiple">
+        <label for="category">Category</label>
+        <select th:field="*{categories}" id="category">
             <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
         </select>
 
@@ -38,5 +39,6 @@
     </form>
 
 </div>
+
 </body>
 </html>

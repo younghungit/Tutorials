@@ -29,6 +29,15 @@ public class LibraryApplication {
 			book1.addCategory(category1);
 			book1.addPublisher(publisher1);
 			bookService.createBook(book1);
+
+			Book book2 = new Book("test2","test2", "test2");
+			Author author2 = new Author("test2","test2");
+			Category category2 = new Category("test2");
+			Publisher publisher2 = new Publisher("test2");
+			book2.addAuthor(author2);
+			book2.addCategory(category2);
+			book2.addPublisher(publisher2);
+			bookService.createBook(book2);
 		};
 	}
 }

@@ -1,6 +1,9 @@
 package com.younghun.library.controller;
 
+import com.younghun.library.model.Author;
 import com.younghun.library.model.Book;
+import com.younghun.library.model.Category;
+import com.younghun.library.model.Publisher;
 import com.younghun.library.service.AuthorService;
 import com.younghun.library.service.BookService;
 import com.younghun.library.service.CategoryService;
@@ -11,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 //@RequestMapping("/book")
@@ -33,42 +38,55 @@ public class BookController {
     public String findAllBooks(Model model) {
         List<Book> books =bookService.findAllBooks();
         model.addAttribute("books", books);
+
         return "books";
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/bookinfo/{id}")
     public String findBookById(Model model,@PathVariable Long id) {
         Book book = bookService.findBookById(id);
         model.addAttribute("book", book);
-        return "book";
+        return "bookinfo";
     }
 
-    @GetMapping("/deleteBookById/{id}")
+    @GetMapping("/delete-book/{id}")
     public String deleteBookById(Model model,@PathVariable Long id) {
         bookService.deleteBookById(id);
+        model.addAttribute("books", bookService.findAllBooks());
         return "books";
     }
 
-    @GetMapping("/updateBook/{id}")
+    @GetMapping("/update-book/{id}")
     public String updateBookById(Model model,@PathVariable Long id) {
         Book book = bookService.findBookById(id);
         model.addAttribute("book", book);
-        return "updateBook";
+        model.addAttribute("authors", authorService.findAllAuthors());
+        model.addAttribute("publishers", publisherService.findAllPublishers());
+        model.addAttribute("categories", categoryService.findAllCategories());
+        return "update-book";
     }
 
     @PostMapping("/save-update/{id}")
-    public String saveUpdateBookById(Model model,@PathVariable Long id, BindingResult bindingResult, Book book) {
+    public String saveUpdateBookById(@PathVariable Long id,Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "updateBook";
+            return "update-book";
         }
         bookService.updateBook(book);
         model.addAttribute("books", bookService.findAllBooks());
-        return "redirect:/books";
+        return "bookinfo";
     }
+
+
+
+
+
 
     @GetMapping("/add-book")
     public String addBook(Book book, Model model) {
         model.addAttribute("book", book);
+        model.addAttribute("authors", authorService.findAllAuthors());
+        model.addAttribute("publishers", publisherService.findAllPublishers());
+        model.addAttribute("categories", categoryService.findAllCategories());
         return "add-book";
     }
 

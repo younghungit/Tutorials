@@ -28,6 +28,6 @@ public class Author {
 		this.name = name;
 	}
 
-	@ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "authors", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Set<Book> books = new HashSet<Book>();
 }
