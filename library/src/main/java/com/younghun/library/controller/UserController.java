@@ -1,17 +1,19 @@
 package com.younghun.library.controller;
 
-import com.younghun.library.config.ErrorCode;
-import com.younghun.library.config.UserForm;
 import com.younghun.library.model.User;
 import com.younghun.library.repository.UserRepository;
 import com.younghun.library.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,50 +21,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+
+    }
 
     @GetMapping("/login")
-    public String login() {
+    public String showLoginPage() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String authenticate(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
+    public String authenticate(@RequestParam String username,
+                               @RequestParam String password,
+                               HttpSession session) {
         User user = userService.findUserByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            session.setAttribute("user", user);
-            return "redirect:/home";
+
+        if (user == null) {
+            System.out.println("User not found");
+            return "redirect:/login?error";
         }
-        model.addAttribute("error", "Invalid credentials");
-        return "home";
+
+        System.out.println("Stored Password: " + user.getPassword());
+        System.out.println("Entered Password: " + password);
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            System.out.println("Password does not match");
+            return "redirect:/login?error";
+        }
+
+        session.setAttribute("user", user);
+
+
+        return "redirect:/";
     }
+
     @GetMapping("/signup")
-    public String signup(UserForm userForm) {
+    public String signup() {
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserForm userForm, BindingResult bindingResult) {
-        System.out.println(userForm);
-        if(bindingResult.hasErrors()) {
-            return "signup";
-        }
-        if(!userForm.getPassword1().equals(userForm.getPassword2())) {
-            bindingResult.rejectValue("password1",
-                    ErrorCode.INVALID_PASSWORD.getCode(),ErrorCode.INVALID_PASSWORD.getMessage());
-            return "signup";
+    public String signup(@RequestParam String username, @RequestParam String password) {
+        userService.registerUser(username, password);
 
-        }
-        //username duplication
-        if(userService.createUser(userForm)==null){
-            bindingResult.rejectValue("username",
-                    ErrorCode.ALREADY_EXIST_USERNAME.getCode(),ErrorCode.ALREADY_EXIST_USERNAME.getMessage());
-            return "signup";
-        }
         return "redirect:/";
     }
 
@@ -70,5 +76,10 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/login";
+    }
+    @GetMapping("/")
+    public String showHomePage(Model model, HttpSession session) {
+        model.addAttribute("user", session.getAttribute("user"));
+        return "home";
     }
 }

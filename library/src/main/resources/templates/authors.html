@@ -16,6 +16,10 @@
   </p>
   <div>
     <h2 th:case="null">No record found !!</h2>
+
+    <div th:if="${error}">
+      <p style="color: red;" th:text="${error}"></p>
+    </div>
     <div th:case="*">
       <table>
         <thead>

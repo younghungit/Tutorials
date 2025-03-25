@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<div th:replace="~{navbar :: navbar}"></div>
-<form th:action="@{/signup}" method="post" th:object="${userForm}">
-  <input type="text" th:field="*{username}" placeholder="Username"/>
-  <div th:errors="*{username}" class="error"></div><br/>
-  <input type="password" th:field="*{password1}" placeholder="Password"/>
-  <div th:errors="*{password1}" class="error"></div><br/>
-
-  <input type="password" th:field="*{password2}" placeholder="Confirm Password"/>
-  <div th:errors="*{password2}" class="error"></div><br/>
-
-  <input type="submit" value="Sign Up"/>
+<h1>会員登録</h1>
+<form action="/signup" method="post" >
+  <label>ユーザー名:</label>
+  <input type="text" name="username" required />
+  <br />
+  <label>パスワード:</label>
+  <input type="password" name="password" required />
+  <br />
+  <button type="submit">会員登録</button>
 
 </form>
+
+<div>既すでにアカウントをお持もちですか？</div>
+<a href="/login">ログイン</a>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ package com.younghun.library.service;
 import com.younghun.library.model.Publisher;
 import com.younghun.library.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,5 +24,8 @@ public class PublisherService {
     public void updatePublisher(Publisher publisher){publisherRepository.save(publisher);}
     public void deletePublisher(Long id){
         Publisher publisher = publisherRepository.findById(id).orElseThrow(() -> new RuntimeException("その出版社はありません"));
+        if (!publisher.getBooks().isEmpty()) {
+            throw new DataIntegrityViolationException("Cannot delete publisher with related books");
+        }
         publisherRepository.deleteById(publisher.getId());}
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Books List</title>
+    <title>Books Update</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
@@ -11,14 +11,14 @@
 
 <div>
     <form action="#" th:action="@{/save-update/{id}(id=${book.id})}" th:object="${book}" method="post">
-        <label for="name">Name</label>
-        <input type="text" th:field="*{name}" id="name" placeholder="${book.name}"/>
+        <label for="name">書籍名</label>
+        <input type="text" th:field="*{name}" id="name" th:placeholder="書籍名"/>
         <br>
         <label for="isbn">ISBN</label>
-        <input type="text" th:field="*{isbn}" id="isbn" placeholder="ISBN"/>
+        <input type="text" th:field="*{isbn}" id="isbn" th:placeholder="ISBN"/>
         <br>
-        <label for="description">Description</label>
-        <input type="text" th:field="*{description}" id="description" placeholder="Description"/>
+        <label for="description">説明</label>
+        <input type="text" th:field="*{description}" id="description" th:placeholder="description"/>
         <br>
         <label for="author">Author</label>
         <select th:field="*{authors}" id="author">

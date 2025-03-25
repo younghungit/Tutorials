@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Save-Book</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <div th:replace="~{navbar :: navbar}"></div>
 
-  <h1>ホムパージです</h1>
+
+<div th:if="${user}">
+  <h1>ようこそ, <span th:text="${user.username}"></span>!</h1>
+  <a href="/logout">ログアウト</a>
+</div>
+
+<div th:unless="${user}">
+  <a href="/login">ログイン</a>
+  <a href="/signup">会員登録</a>
+</div>
 </body>
 </html>

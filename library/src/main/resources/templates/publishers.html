@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Publishers List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-$END$
+
+<div th:replace="~{navbar :: navbar}"></div>
+
+<div th:switch="${publishers}">
+    <p>
+        <a href="/add-publisher">
+            <i> 出版社追加 </i></a>
+    </p>
+    <div>
+        <h2 th:case="null">No record found !!</h2>
+
+        <div th:if="${error}">
+            <p style="color: red;" th:text="${error}"></p>
+        </div>
+        <div th:case="*">
+
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">出版社名</th>
+                    <th scope="col">説明</th>
+                    <th scope="col">編集</th>
+                    <th scope="col">削除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="publishers : ${publishers}">
+                    <td th:text="${publishers.name}"></td>
+                    <td th:text="${publishers.description}"></td>
+                    <td><a th:href="@{/update-publisher/{id}(id=${publishers.id})}" >編集</a></td>
+                    <td><a th:href="@{/delete-publisher/{id}(id=${publishers.id})}">削除</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -9,9 +9,6 @@
 <nav th:fragment="navbar" class="navbar">
     <h1>アンヨンフン　サイト</h1>
     <ul class="nav-list">
-
-        <li><a th:if="${session.user == null}" href="/signup">会員加入</a></li>
-        <li><a th:if="${session.user == null}" href="/login">ログイン</a></li>
         <li><a th:if="${session.user != null}" href="/logout">ログアウト</a></li>
         <li><a th:if="${session.user != null}" href="/">ホム</a></li>
         <li><a th:if="${session.user != null}" href="/books">書籍</a></li>

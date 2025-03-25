@@ -20,17 +20,17 @@
         <input type="text" th:field="*{description}" id="description" placeholder="Description"/>
         <br>
         <label for="author">著者</label>
-        <select th:field="*{authors}" id="author" multiple="multiple">
+        <select th:field="*{authors}" id="author">
             <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
         </select>
         <br>
         <label for="publisher">出版社</label>
-        <select th:field ="*{publishers}" id="publisher" multiple="multiple">
+        <select th:field ="*{publishers}" id="publisher">
             <option th:each="publisher: ${publishers}" th:value="${publisher.id}" th:text = "${publisher.name}"></option>
         </select>
         <br>
         <label for="category">分類</label>
-        <select th:field="*{categories}" id="category" multiple="multiple">
+        <select th:field="*{categories}" id="category" >
             <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
         </select>
 

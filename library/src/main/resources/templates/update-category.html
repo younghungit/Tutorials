@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Categories Update</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-$END$
+
+<div th:replace="~{navbar :: navbar}"></div>
+
+<div>
+    <form action="#" th:action="@{/update-save-category/{id}(id=${category.id})}" th:object="${category}" method="post">
+        <label for="name">分類名</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="名前"/>
+        <br>
+        <label for="description">説明</label>
+        <input type="text" th:field="*{description}" id="description" placeholder="説明">
+        <input type="submit" value="Submit">
+
+    </form>
+
+</div>
+
 </body>
 </html>

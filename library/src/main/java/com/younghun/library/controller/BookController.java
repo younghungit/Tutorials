@@ -1,13 +1,11 @@
 package com.younghun.library.controller;
 
-import com.younghun.library.model.Author;
-import com.younghun.library.model.Book;
-import com.younghun.library.model.Category;
-import com.younghun.library.model.Publisher;
+import com.younghun.library.model.*;
 import com.younghun.library.service.AuthorService;
 import com.younghun.library.service.BookService;
 import com.younghun.library.service.CategoryService;
 import com.younghun.library.service.PublisherService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +33,7 @@ public class BookController {
     private PublisherService publisherService;
 
     @GetMapping("/books")
-    public String findAllBooks(Model model) {
+    public String findAllBooks(Model model, HttpSession session) {
         List<Book> books =bookService.findAllBooks();
         model.addAttribute("books", books);
 
