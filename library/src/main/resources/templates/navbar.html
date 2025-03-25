@@ -9,16 +9,15 @@
 <nav th:fragment="navbar" class="navbar">
     <h1>アンヨンフン　サイト</h1>
     <ul class="nav-list">
-        <li><a href="/">ホム</a></li>
-        <li><a href="/books">書籍</a></li>
-        <li><a href="/authors">著者</a></li>
-        <li><a href="/categories">分類</a></li>
-        <li><a href="/publishers">出版社</a></li>
+
         <li><a th:if="${session.user == null}" href="/signup">会員加入</a></li>
         <li><a th:if="${session.user == null}" href="/login">ログイン</a></li>
-        <li>
-            <a th:if="${session.user != null}" href="/logout">ログアウト</a>
-        </li>
+        <li><a th:if="${session.user != null}" href="/logout">ログアウト</a></li>
+        <li><a th:if="${session.user != null}" href="/">ホム</a></li>
+        <li><a th:if="${session.user != null}" href="/books">書籍</a></li>
+        <li><a th:if="${session.user != null}" href="/authors">著者</a></li>
+        <li><a th:if="${session.user != null}" href="/categories">分類</a></li>
+        <li><a th:if="${session.user != null}" href="/publishers">出版社</a></li>
     </ul>
 </nav>
 </body>
